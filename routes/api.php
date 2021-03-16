@@ -30,8 +30,12 @@ Route::group(['prefix' => 'auth'
 
 Route::group(['middleware' => 'jwt.auth'], function ($router) {
 
-    Route::get('customers', 'CustomersController@all');
-    Route::get('customers/{id}', 'CustomersController@get');
-    Route::post('customers/new', 'CustomersController@new');
+    Route::get('customers', [App\Http\Controllers\CustomersController::class, 'all']);
+    Route::get('customers/{id}', [App\Http\Controllers\CustomersController::class, 'get']);
+    Route::post('customers/new', [App\Http\Controllers\CustomersController::class, 'new']);
+
+    // Route::get('customers', 'CustomersController@all');
+    // Route::get('customers/{id}', 'CustomersController@get');
+    // Route::post('customers/new', 'CustomersController@new');
 
 });

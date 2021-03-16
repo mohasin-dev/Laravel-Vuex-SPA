@@ -1,21 +1,24 @@
+import { setAuthorization } from "./general";
+
 export function login(credentials) {
-    return new Promise((resolve, reject) => {
+    return new Promise((res, rej) => {
         axios.post('/api/auth/login', credentials)
             .then((response) => {
-                resolve(response.data);
+                setAuthorization(response.data.access_token);
+                res(response.data);
             })
-            .catch((error) => {
-                reject("Invalid email or password");
+            .catch((err) =>{
+                rej("Wrong email or password");
             })
     })
 }
 
 export function getLocalUser() {
-    const user = localStorage.getItem('user');
+    const userStr = localStorage.getItem("user");
 
-    if (!user) {
+    if(!userStr) {
         return null;
     }
 
-    return JSON.parse(user);
+    return JSON.parse(userStr);
 }

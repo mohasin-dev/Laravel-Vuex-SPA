@@ -48,6 +48,7 @@
 
 <script>
     import validate from 'validate.js';
+
     export default {
         name: 'new',
         data() {
@@ -69,12 +70,16 @@
         methods: {
             add() {
                 this.errors = null;
+
                 const constraints = this.getConstraints();
+
                 const errors = validate(this.$data.customer, constraints);
+
                 if(errors) {
                     this.errors = errors;
                     return;
                 }
+
                 axios.post('/api/customers/new', this.$data.customer)
                     .then((response) => {
                         this.$router.push('/customers');
@@ -118,3 +123,4 @@
     padding: 21px 0 2px 0;
 }
 </style>
+
